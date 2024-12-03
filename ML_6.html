@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Website Detection with Machine Learning</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2, h3 { color: #007BFF; }
+        img { max-width: 100%; height: auto; }
+        .code-block { background: #f4f4f4; padding: 10px; border-left: 5px solid #007BFF; font-family: monospace; }
+        .note { font-style: italic; color: gray; }
+        .github-link { text-decoration: none; color: #ffffff; background-color: #007BFF; padding: 10px 15px; border-radius: 5px; }
+        .github-link:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Phishing Website Detection with Machine Learning</h1>
+            <p>Exploring machine learning techniques to detect phishing websites and protect users from online scams.</p>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Phishing websites mimic legitimate websites to steal sensitive information like usernames, passwords, and credit card details. Detecting these websites is crucial for safeguarding online users. Machine learning provides a robust solution by analyzing features such as URL structure, domain attributes, and HTML content to classify websites as phishing or legitimate.</p>
+        </section>
+
+        <section id="phishing-detection">
+            <h2>How Phishing Detection Works</h2>
+            <p>Phishing website detection involves the following steps:</p>
+            <ul>
+                <li><strong>Data Collection:</strong> Gathering a dataset of phishing and legitimate website URLs and metadata.</li>
+                <li><strong>Feature Engineering:</strong> Extracting features like URL length, the presence of suspicious keywords, and domain age.</li>
+                <li><strong>Model Training:</strong> Using machine learning algorithms (e.g., Random Forest, Logistic Regression) to classify websites.</li>
+            </ul>
+            <img src="Screenshot 2024-12-03 154820.png" alt="Phishing Detection Workflow" title="Phishing Detection Workflow">
+            <p class="note">Figure: Workflow of phishing website detection using machine learning.</p>
+        </section>
+
+        <section id="implementation">
+            <h2>Code Implementation</h2>
+            <p>The following Python code demonstrates phishing website detection using a dataset of URLs:</p>
+            <div class="code-block">
+<pre>
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset
+data = pd.read_csv("phishing_dataset.csv")  # Replace with your dataset
+print(data.head())
+
+# Split features and target
+X = data.drop(columns=['label'])  # Features
+y = data['label']  # Target: 1 for phishing, 0 for legitimate
+
+# Split the dataset
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a Random Forest Classifier
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# Evaluate the model
+y_pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
+print(classification_report(y_test, y_pred))
+</pre>
+            </div>
+            <p>This implementation uses a Random Forest classifier for phishing website detection, analyzing features like URL length and domain age. It evaluates the model's performance using accuracy, precision, recall, and F1-score.</p>
+        </section>
+
+        <section id="results">
+            <h2>Results and Analysis</h2>
+            <p>The Random Forest model achieved an accuracy of approximately 95%, demonstrating its effectiveness for phishing detection. Key insights include:</p>
+            <ul>
+                <li><strong>High Precision:</strong> Legitimate websites were correctly classified with minimal false positives.</li>
+                <li><strong>Strong Recall:</strong> The model successfully flagged most phishing websites.</li>
+            </ul>
+            <img src="Screenshot 2024-12-03 154414.png" alt="Phishing Detection Accuracy" title="Phishing Detection Accuracy">
+            <p class="note">Figure: Accuracy and classification metrics for phishing website detection.</p>
+        </section>
+
+        <section id="applications">
+            <h2>Applications</h2>
+            <ul>
+                <li><strong>Browser Security:</strong> Integrating phishing detection into web browsers to warn users of malicious websites.</li>
+                <li><strong>Cybersecurity Tools:</strong> Enhancing anti-phishing tools with machine learning capabilities.</li>
+                <li><strong>Enterprise Security:</strong> Protecting employees from phishing scams targeting corporate networks.</li>
+            </ul>
+        </section>
+
+        <section id="github">
+            <h2>GitHub Repository</h2>
+            <p>Explore the complete code for phishing website detection on GitHub:</p>
+            <a href="https://github.com/RavindraK9/ML-Repository" target="_blank" class="github-link">View on GitHub</a>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>Phishing website detection using machine learning offers a robust defense against online scams. This report demonstrates the effectiveness of Random Forests in classifying websites based on key features. Future work could explore deep learning techniques and real-time detection systems to enhance protection.</p>
+        </section>
+    </div>
+</body>
+</html>
